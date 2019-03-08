@@ -13,6 +13,35 @@ year = today.getFullYear();
 today = month+"/"+day+"/"+year;
 document.getElementById("today").innerHTML = today;
 
+
+var HttpClient = function() {
+this.get = function(aUrl, aCallback) {
+var anHttpRequest = new XMLHttpRequest();
+anHttpRequest.onreadystatechange = function() { 
+if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+aCallback(anHttpRequest.responseText);
+}
+anHttpRequest.open( "GET", aUrl, true ); 
+anHttpRequest.send( null ); 
+}
+}
+var theurl='https://github.com/brynan/brynan.github.io/blob/master/GData.txt';
+var client = new HttpClient();
+client.get(theurl, function(response) { 
+// var response1 = JSON.parse(response);
+alert(response);});
+
+
+
+
+
+
+
+
+
+
+
+
 var file = "GData.txt";
 var reader = new FileReader();
 reader.onload = function(e) {
