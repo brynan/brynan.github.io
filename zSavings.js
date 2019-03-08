@@ -13,7 +13,7 @@ year = today.getFullYear();
 today = month+"/"+day+"/"+year;
 document.getElementById("today").innerHTML = today;
 
-<script> 
+
 // Requiring fs module in which  
 // readFile function is defined. 
 const fs = require('fs') 
@@ -23,7 +23,6 @@ fs.readFile('GData.txt', (err, data) => {
   
     console.log(data.toString()); 
 }) 
-</script> 
 
 // getBalance("GData.txt");
 var GBalance = 100;
