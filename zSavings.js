@@ -1,4 +1,3 @@
-alert('alerts work');
 // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   // Great success! All the File APIs are supported.
@@ -14,11 +13,6 @@ year = today.getFullYear();
 today = month+"/"+day+"/"+year;
 document.getElementById("today").innerHTML = today;
 
-console.log(url)
-fetch(url)
-.then(function(response){
-	return response.json;};
-	
 
 
 getBalance("GarritData.txt");
