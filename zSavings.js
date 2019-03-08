@@ -13,11 +13,13 @@ year = today.getFullYear();
 today = month+"/"+day+"/"+year;
 document.getElementById("today").innerHTML = today;
 
+var file = "GData.txt";
 var reader = new FileReader();
 reader.onload = function(e) {
   var text = reader.result;
 }
 reader.readAsText(file);
+alert("reader complete")
 
 
 // getBalance("GData.txt");
