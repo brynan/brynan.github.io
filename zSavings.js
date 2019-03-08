@@ -15,11 +15,11 @@ document.getElementById("today").innerHTML = today;
 
 
 
-getBalance("GarritData.txt");
+getBalance("GData.txt");
 var GBalance = 100;
 document.getElementById("GBalance").innerHTML = GBalance;
 
-getBalance("SethData.txt");
+getBalance("SData.txt");
 var SBalance = 200;
 document.getElementById("SBalance").innerHTML = SBalance;
 
