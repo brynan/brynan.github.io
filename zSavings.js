@@ -33,7 +33,7 @@ function startRead() {
 }
 
 
-getAsText("GarritData.txt");
+getAsText("GData.txt");
 
 function getAsText(readFile) {
   var reader = new FileReader();
