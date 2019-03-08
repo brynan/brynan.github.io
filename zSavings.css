@@ -1,0 +1,29 @@
+* {
+	box-sizing: border-box}
+
+h1 {
+	text-align: center}
+p, span {
+	font-size: 24px}
+
+.box {
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;}
+
+.column {
+	float: left;
+	width: 50%;
+	padding: 10px 35px 15px 35px;
+	border: 1px solid powderblue;}
+
+.row:after {
+	content: "";
+	display: table;
+	clear: both}
+
+.balance0 {
+	text-indent: 25px}
+
+.balance {
+	float: right}
