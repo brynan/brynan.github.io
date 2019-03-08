@@ -1,0 +1,2 @@
+Date, TransType, Amount, Balance
+11/30/2008, Deposit, 200, 200.00
