@@ -6,27 +6,30 @@
 	<link href="zSavings.css" rel="stylesheet" type="text/css"
 </head>
 
-<body>
-<h1>Kids Savings</h1>
-
-<div class="box">
-<p>Today's Date: <span id="today"></span></p>
-<div class="row">
-  <div class="column" style="background-color:#aaa;">
-    <h2>Garrit</h2>
-    <p class="balance0">Balance:<span class="balance" id="GBalance"></span></p>
-	<span id="today"></span>
-  </div>
-  <div class="column" style="background-color:#bbb;">
-    <h2>Seth</h2>
-    <p class="balance0">Balance:<span class="balance" id="SBalance"></span></p>
-  </div>
-</div>
-</div>
-
+<body onload="todayDate()">
+	<h1>Kids Savings</h1>
+	<div class="box">
+	<p>Today's Date: <span id="todayDate"></span></p>
+	<div class="row">
+	<div class="column" style="background-color:#aab;" onclick="Javascript:addTable('Garrit')">
+	<h2>Garrit</h2>
+	<p class="balance0">Balance:<span class="balance" id="GBalance"></span></p>
+	<span class="instructions">Click box to see past transactions.</span>
+	</div>
+	<div class="column" style="background-color:#bbb;" onclick="Javascript:addTable('Seth')">
+	<h2>Seth</h2>
+	<p class="balance0">Balance:<span class="balance" id="SBalance"></span></p>
+	<div class="instructions">Click box to see past transactions.</div>
+	</div>
+	</div>
+	<div class="transactions">
+	<div id="metric_results"></div>
+	</div>
+	</div>
 </body>
 
 <footer>
-<script type="text/javascript" src="zSavings.js"></script>
+	<script type="text/javascript" src="zSavings.js"></script>
 </footer>
+
 </html>
