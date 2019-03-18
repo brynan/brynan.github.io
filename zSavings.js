@@ -1,116 +1,93 @@
-// Check for the various File API support.
+  // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   // Great success! All the File APIs are supported.
 } else {
   alert('The File APIs are not fully supported in this browser.');
 }
-
-today = new Date();
-month = today.getMonth();
-month = (month * 1) + 1;
-day = today.getDate();
-year = today.getFullYear();
-today = month+"/"+day+"/"+year;
-document.getElementById("today").innerHTML = today;
-
-
-var HttpClient = function() {
-this.get = function(aUrl, aCallback) {
-var anHttpRequest = new XMLHttpRequest();
-anHttpRequest.onreadystatechange = function() { 
-if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-aCallback(anHttpRequest.responseText);
+function todayDate() {
+  todayDate = new Date();
+  month = todayDate.getMonth();
+	month = (month * 1) + 1;
+	day = todayDate.getDate();
+	year = todayDate.getFullYear();
+	todayDate = month+"/"+day+"/"+year;
+	document.getElementById("todayDate").innerHTML = todayDate;
+	GetData();
 }
-anHttpRequest.open( "GET", aUrl, true ); 
-anHttpRequest.send( null ); 
-}
-}
-var theurl='https://github.com/brynan/brynan.github.io/blob/master/GData.txt';
-var client = new HttpClient();
-client.get(theurl, function(response) { 
-// var response1 = JSON.parse(response);
-alert(response);});
+var Urls = ["https://raw.githubusercontent.com/brynan/brynan.github.io/master/GData.txt?callback=?", "https://raw.githubusercontent.com/brynan/brynan.github.io/master/SData.txt?callback=?"];
+var GData = [];
+var SData = [];
+var GTransactions = [];
+var STransactions = [];
 
-
-
-
-
-
-
-
-
-
-
-
-var file = "GData.txt";
-var reader = new FileReader();
-reader.onload = function(e) {
-  var text = reader.result;
-}
-reader.readAsText(file);
-alert("reader complete")
-
-
-// getBalance("GData.txt");
-var GBalance = 100;
-document.getElementById("GBalance").innerHTML = GBalance;
-
-// getBalance("SData.txt");
-var SBalance = 200;
-document.getElementById("SBalance").innerHTML = SBalance;
-
-function startRead() {
-  // obtain input element through DOM
-
-  var file = document.getElementById('file').files[0];
-  if(file){
-    getAsText(file);
-  }
+function GetData() {
+	for (i = 0; i < Urls.length; i++){
+		console.log(Urls[i])
+		var DataRequest = new XMLHttpRequest();
+		DataRequest.open('GET', Urls[i], false);
+		DataRequest.send(null);
+		if(DataRequest.readyState == 4 && DataRequest.status == 200){
+			var Data = DataRequest.responseText;
+			var Data = Data.replace(/[\n\r]/g, ",").replace(/[ ]/g, "");
+			var Data = Data.split(",");
+		}
+		if(i==0){
+			GData = Data;
+		}
+		if(i==1){
+			SData = Data;
+		}
+	}
+	getBalances();
 }
 
-
-getAsText("GData.txt");
-
-function getAsText(readFile) {
-  var reader = new FileReader();
-  alert(readFile);
-  // Read file into memory as UTF-16
-  reader.readAsText(readFile, "UTF-16");
-  myString = reader.result;
-  /* alert('myString'); */
-
-  // Handle progress, success, and errors
-  reader.onprogress = updateProgress;
-  reader.onload = loaded;
-  reader.onerror = errorHandler;
+function getBalances(){
+	document.getElementById("GBalance").innerHTML = GData[GData.length-2]
+	document.getElementById("SBalance").innerHTML = SData[SData.length-2]
 }
 
-function updateProgress(evt) {
-  if (evt.lengthComputable) {
-    // evt.loaded and evt.total are ProgressEvent properties
-    var loaded = (evt.loaded / evt.total);
-    if (loaded < 1) {
-      // Increase the prog bar length
-      // style.width = (loaded * 200) + "px";
-    }
-  }
-}
+function addTable(name) {
+	document.getElementById("metric_results").innerHTML = "<br>"
+	if(name=="Garrit") {
+		var Transactions = GData;
+	}
+	if(name=="Seth") {
+		var Transactions = SData;
+	}
+    console.log(Transactions.length);
+	
+	var myTableDiv = document.getElementById("metric_results")
+    var table = document.createElement('TABLE')
+    var tableBody = document.createElement('TBODY')
 
-function loaded(evt) {
-  // Obtain the read file data
-  var fileString = evt.target.result;
-  // Handle UTF-16 file dump
-  if(utils.regexp.isChinese(fileString)) {
-    //Chinese Characters + Name validation
-  }
-  else {
-    // run other charset test
-  }
-  // xhr.send(fileString)
-}
+    table.border = '1'
+    table.appendChild(tableBody);
 
-function errorHandler(evt) {
-  if(evt.target.error.name == "NotReadableError") {
-    // The file could not be read
-  }
+	//TABLE HEADINGS
+	var heading = new Array(Transactions[0], Transactions[1], Transactions[2], Transactions[3]);
+	//TABLE ROW Data
+	var stock = new Array();
+	for (i = 4; i < Transactions.length-1; i+=4){
+		stock.push(new Array(Transactions[i+0], Transactions[i+1], Transactions[i+2], Transactions[i+3]));
+	}
+    //TABLE COLUMNS
+    var tr = document.createElement('TR');
+    tableBody.appendChild(tr);
+    for (i = 0; i < heading.length; i++) {
+      var th = document.createElement('TH')
+      th.width = '125';
+      th.appendChild(document.createTextNode(heading[i]));
+      tr.appendChild(th);
+      }
+    //TABLE ROWS
+    for (i = 0; i < stock.length; i++) {
+      var tr = document.createElement('TR');
+      for (j = 0; j < stock[i].length; j++) {
+      var td = document.createElement('TD')
+      td.appendChild(document.createTextNode(stock[i][j]));
+      tr.appendChild(td)
+      }
+      tableBody.appendChild(tr);
+     }  
+    myTableDiv.appendChild(table)
 }
