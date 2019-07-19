@@ -98,3 +98,4 @@ Date, Transaction, Deposit, Balance
 12/31/2018, Interest, $0.51, $297.07
 01/31/2019, Interest, $0.51, $297.58
 02/28/2019, Interest, $0.46, $298.04
+07/19/2019, Deposit, $25.00, $323.04
